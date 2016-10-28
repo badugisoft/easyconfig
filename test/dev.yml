@@ -1,0 +1,10 @@
+mode:
+    position: dev
+
+names:
+- Jason
+- David
+
+partial:
+    sub:
+        one: one
