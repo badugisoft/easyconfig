@@ -1,4 +1,4 @@
-package config
+package easyconfig
 
 import (
 	"bytes"
@@ -9,27 +9,6 @@ import (
 
 	"github.com/badugisoft/xson"
 )
-
-func loadValue(v interface{}, names []string, str string) error {
-	buf := bytes.NewBuffer([]byte{})
-
-	for l, name := range names {
-		fmt.Fprint(buf, "\n")
-		for i := 0; i < l; i++ {
-			fmt.Fprint(buf, "  ")
-		}
-		fmt.Fprintf(buf, "%v:", name)
-	}
-
-	fmt.Fprintf(buf, " %v", str)
-
-	err := xson.Unmarshal(xson.YAML, buf.Bytes(), v)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 func LoadDir(v interface{}, mode, dir string) error {
 	for _, name := range []string{"default", mode, "local"} {
@@ -82,6 +61,7 @@ func LoadEnv(v interface{}, prefix string) error {
 	}
 
 	prefixLen := len(prefix)
+	buf := bytes.NewBuffer([]byte{})
 
 	for _, env := range os.Environ() {
 		if !strings.HasPrefix(env, prefix) {
@@ -92,17 +72,15 @@ func LoadEnv(v interface{}, prefix string) error {
 			continue
 		}
 
-		err := loadValue(v, strings.Split(tokens[0], "_"), tokens[1])
-		if err != nil {
-			return err
-		}
+		fmt.Fprintf(buf, "%v: %v\n", strings.Replace(tokens[0], "_", ".", -1), tokens[1])
 	}
-	return nil
+	return xson.Unmarshal(xson.FLAT_YAML, buf.Bytes(), v)
 }
 
 func LoadArg(v interface{}, flag string) error {
 	args := os.Args
 	flagStr := "--" + flag
+	buf := bytes.NewBuffer([]byte{})
 
 	for i, e := 0, len(args)-1; i < e; i++ {
 		if args[i] == flagStr {
@@ -111,12 +89,9 @@ func LoadArg(v interface{}, flag string) error {
 				continue
 			}
 
-			err := loadValue(v, strings.Split(tokens[0], "."), tokens[1])
-			if err != nil {
-				return err
-			}
+			fmt.Fprintf(buf, "%v: %v\n", tokens[0], tokens[1])
 			i++
 		}
 	}
-	return nil
+	return xson.Unmarshal(xson.FLAT_YAML, buf.Bytes(), v)
 }

@@ -1,0 +1,5 @@
+local.position: local
+names:
+- John
+- Tom
+partial.sub.three: 321

@@ -1,17 +1,17 @@
-package config_test
+package easyconfig_test
 
 import (
 	"os"
 	"testing"
 
-	"github.com/badugisoft/config"
-	"github.com/badugisoft/config/test"
+	"github.com/badugisoft/easyconfig"
+	"github.com/badugisoft/easyconfig/test"
 	"github.com/badugisoft/xson"
 )
 
 func TestLoadDir(t *testing.T) {
 	cfg := test.ConfigData{}
-	err := config.LoadDir(&cfg, "dev", "test")
+	err := easyconfig.LoadDir(&cfg, "dev", "test")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -24,7 +24,7 @@ func TestLoadDir(t *testing.T) {
 
 func TestLoadAsset(t *testing.T) {
 	cfg := test.ConfigData{}
-	err := config.LoadAsset(&cfg, "dev", test.Asset, "test/")
+	err := easyconfig.LoadAsset(&cfg, "dev", test.Asset, "test/")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -40,7 +40,7 @@ func TestLoadEnv(t *testing.T) {
 	os.Setenv("cfg_partial_sub_two", "223344")
 
 	cfg := test.ConfigData{}
-	err := config.LoadEnv(&cfg, "cfg")
+	err := easyconfig.LoadEnv(&cfg, "cfg")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -63,7 +63,7 @@ func TestLoadArg(t *testing.T) {
 	os.Setenv("cfg_partial_sub_two", "223344")
 
 	cfg := test.ConfigData{}
-	err := config.LoadArg(&cfg, "cfg")
+	err := easyconfig.LoadArg(&cfg, "cfg")
 	if err != nil {
 		t.Fatal(err)
 	}
