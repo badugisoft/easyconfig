@@ -31,6 +31,13 @@ func LoadDir(v interface{}, mode, dir string) error {
 	return nil
 }
 
+func MustLoadDir(v interface{}, mode, dir string) {
+	err := LoadDir(v, mode, dir)
+	if err != nil {
+		panic(err)
+	}
+}
+
 type AssetFunc func(name string) ([]byte, error)
 
 func LoadAsset(v interface{}, mode string, f AssetFunc, pathPrefix string) error {
@@ -55,6 +62,13 @@ func LoadAsset(v interface{}, mode string, f AssetFunc, pathPrefix string) error
 	return nil
 }
 
+func MustLoadAsset(v interface{}, mode string, f AssetFunc, pathPrefix string) {
+	err := LoadAsset(v, mode, f, pathPrefix)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func LoadEnv(v interface{}, prefix string) error {
 	if !strings.HasSuffix(prefix, "_") {
 		prefix = prefix + "_"
@@ -77,6 +91,13 @@ func LoadEnv(v interface{}, prefix string) error {
 	return xson.Unmarshal(xson.FLAT_YAML, buf.Bytes(), v)
 }
 
+func MustLoadEnv(v interface{}, prefix string) {
+	err := LoadEnv(v, prefix)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func LoadArg(v interface{}, flag string) error {
 	args := os.Args
 	flagStr := "--" + flag
@@ -94,4 +115,11 @@ func LoadArg(v interface{}, flag string) error {
 		}
 	}
 	return xson.Unmarshal(xson.FLAT_YAML, buf.Bytes(), v)
+}
+
+func MustLoadArg(v interface{}, prefix string) {
+	err := LoadArg(v, prefix)
+	if err != nil {
+		panic(err)
+	}
 }
