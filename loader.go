@@ -10,6 +10,12 @@ import (
 	"github.com/badugisoft/xson"
 )
 
+func _panic(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 func LoadDir(v interface{}, mode, dir string) error {
 	for _, name := range []string{"default", mode, "local"} {
 		for _, t := range xson.GetTypes() {
@@ -32,10 +38,7 @@ func LoadDir(v interface{}, mode, dir string) error {
 }
 
 func MustLoadDir(v interface{}, mode, dir string) {
-	err := LoadDir(v, mode, dir)
-	if err != nil {
-		panic(err)
-	}
+	_panic(LoadDir(v, mode, dir))
 }
 
 type AssetFunc func(name string) ([]byte, error)
@@ -63,10 +66,7 @@ func LoadAsset(v interface{}, mode string, f AssetFunc, pathPrefix string) error
 }
 
 func MustLoadAsset(v interface{}, mode string, f AssetFunc, pathPrefix string) {
-	err := LoadAsset(v, mode, f, pathPrefix)
-	if err != nil {
-		panic(err)
-	}
+	_panic(LoadAsset(v, mode, f, pathPrefix))
 }
 
 func LoadEnv(v interface{}, prefix string) error {
@@ -92,10 +92,7 @@ func LoadEnv(v interface{}, prefix string) error {
 }
 
 func MustLoadEnv(v interface{}, prefix string) {
-	err := LoadEnv(v, prefix)
-	if err != nil {
-		panic(err)
-	}
+	_panic(LoadEnv(v, prefix))
 }
 
 func LoadArg(v interface{}, flag string) error {
@@ -118,8 +115,5 @@ func LoadArg(v interface{}, flag string) error {
 }
 
 func MustLoadArg(v interface{}, prefix string) {
-	err := LoadArg(v, prefix)
-	if err != nil {
-		panic(err)
-	}
+	_panic(LoadArg(v, prefix))
 }
