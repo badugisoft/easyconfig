@@ -114,6 +114,6 @@ func LoadArg(v interface{}, flag string) error {
 	return xson.Unmarshal(xson.FLAT_YAML, buf.Bytes(), v)
 }
 
-func MustLoadArg(v interface{}, prefix string) {
-	_panic(LoadArg(v, prefix))
+func MustLoadArg(v interface{}, flag string) {
+	_panic(LoadArg(v, flag))
 }

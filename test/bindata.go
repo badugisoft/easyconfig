@@ -2,7 +2,7 @@
 // sources:
 // test/default.yml
 // test/dev.yml
-// test/local.yml
+// test/local.flat.yml
 // DO NOT EDIT!
 
 package test
@@ -110,22 +110,22 @@ func testDevYml() (*asset, error) {
 	return a, nil
 }
 
-var _testLocalYml = []byte("\x1f\x8b\x08\x00\x00\x09\x6e\x88\x00\xff\xca\xc9\x4f\x4e\xcc\xb1\xe2\x52\x00\x82\x82\xfc\xe2\xcc\x92\xcc\xfc\x3c\x2b\x05\xb0\x20\x17\x57\x5e\x62\x6e\x6a\xb1\x15\x97\xae\x82\x57\x7e\x46\x1e\x90\x0a\xc9\xcf\xe5\x02\x04\x00\x00\xff\xff\x1f\xba\xca\x9b\x30\x00\x00\x00")
+var _testLocalFlatYml = []byte("\x1f\x8b\x08\x00\x00\x09\x6e\x88\x00\xff\xca\xc9\x4f\x4e\xcc\xd1\x2b\xc8\x2f\xce\x2c\xc9\xcc\xcf\xb3\x52\x00\xf3\xb9\xf2\x12\x73\x53\x8b\xad\xb8\x74\x15\xbc\xf2\x33\xf2\x80\x54\x48\x7e\x2e\x57\x41\x62\x51\x49\x26\x50\x6d\x71\x69\x92\x5e\x49\x46\x51\x6a\xaa\x95\x82\xb1\x91\x21\x20\x00\x00\xff\xff\xe9\xef\x4d\x86\x40\x00\x00\x00")
 
-func testLocalYmlBytes() ([]byte, error) {
+func testLocalFlatYmlBytes() ([]byte, error) {
 	return bindataRead(
-		_testLocalYml,
-		"test/local.yml",
+		_testLocalFlatYml,
+		"test/local.flat.yml",
 	)
 }
 
-func testLocalYml() (*asset, error) {
-	bytes, err := testLocalYmlBytes()
+func testLocalFlatYml() (*asset, error) {
+	bytes, err := testLocalFlatYmlBytes()
 	if err != nil {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "test/local.yml", size: 48, mode: os.FileMode(420), modTime: time.Unix(1477645673, 0)}
+	info := bindataFileInfo{name: "test/local.flat.yml", size: 64, mode: os.FileMode(420), modTime: time.Unix(1477724593, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -184,7 +184,7 @@ func AssetNames() []string {
 var _bindata = map[string]func() (*asset, error){
 	"test/default.yml": testDefaultYml,
 	"test/dev.yml": testDevYml,
-	"test/local.yml": testLocalYml,
+	"test/local.flat.yml": testLocalFlatYml,
 }
 
 // AssetDir returns the file names below a certain
@@ -230,7 +230,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 	"test": &bintree{nil, map[string]*bintree{
 		"default.yml": &bintree{testDefaultYml, map[string]*bintree{}},
 		"dev.yml": &bintree{testDevYml, map[string]*bintree{}},
-		"local.yml": &bintree{testLocalYml, map[string]*bintree{}},
+		"local.flat.yml": &bintree{testLocalFlatYml, map[string]*bintree{}},
 	}},
 }}
 
